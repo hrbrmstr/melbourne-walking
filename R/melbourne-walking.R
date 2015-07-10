@@ -58,21 +58,24 @@ walking$weekday <- wday(walking$Date, label=TRUE)
 
 walking %>% count(weekday, Hour, wt=count) -> wday_totals
 
-#' And, finally, we plot it heatmap style.
-#+ plot_vis, warning=FALSE, message=FALSE
-
 tbl_df(wday_totals) %>%
   mutate(Hour=factor(Hour),
          weekday=factor(weekday)) %>%
   rename(`Total Walkers\n(log scale)`=n) -> wday_totals
 
+#' And, finally, we plot it heatmap style.
+#+ plot_vis, warning=FALSE, message=FALSE
+
+parula <- c('#352a87', '#0363e1', '#1485d4', '#06a7c6', '#38b99e',
+            '#92bf73', '#d9ba56', '#fcce2e', '#f9fb0e')
+
+palette <- parula
+
 ggplot(wday_totals, aes(x=Hour, y=weekday)) +
-  geom_tile(aes(fill=`Total Walkers\n(log scale)`), color="white", size=2) +
+  geom_tile(aes(fill=`Total Walkers\n(log scale)`), color="white", size=0.5) +
   scale_x_discrete(expand=c(0, 0)) +
   scale_y_discrete(expand=c(0, 0)) +
-  scale_fill_gradientn(trans="log10", label=comma,
-                       colours=rev(c("#f7fcb9", "#d9f0a3", "#addd8e", "#78c679",
-                                     "#41ab5d", "#238443", "#006837", "#004529"))) +
+  scale_fill_gradientn(label=comma, colours=palette) +
   coord_equal() +
   labs(x=NULL, y=NULL, title="Melbourne Walkers (Time of Day/Day of Week)\n") +
   theme(plot.title=element_text(face="bold", hjust=0, size=16)) +
@@ -92,4 +95,4 @@ rownames(wday_df) <- wday_df$weekday
 
 select(wday_df, -weekday) %>%
   as.matrix() %>%
-  d3heatmap(width=600, height=300,dendrogram="none", colors="YlGn")
+  d3heatmap(width=600, height=300,dendrogram="none", colors=parula)
