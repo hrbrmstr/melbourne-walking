@@ -10,8 +10,6 @@
 -   visualize the data both as a static ggplot heatmap and interactive [htmlwidget](http://htmlwidgets.org)
 -   compare raw R script vs Rmd vs [Jupyter notebook](https://jupyter.org/)
 
-![](heatmap.png)
-
 ### Why "Melbourne Walking"?
 
 The City of Melboune maintains a [site](http://www.pedestrian.melbourne.vic.gov.au/) where you can see data from their 24-hour pedestrian counting system which measures pedestrian activity in the city each day.
@@ -25,6 +23,10 @@ I found the data set in a [Python post](http://myownhat.blogspot.com/2015/07/qui
 ### What do I do next?
 
 The R code in this repo grabs all that data and visualizes the most active hours using a heatmap.
+
+![](heatmap.png)
+
+You can see the knitted Rmd over on [RPubs](http://rpubs.com/hrbrmstr/melbourne-walking).
 
 If you don't have [R](http://www.r-project.org/) or [RStudio](https://www.rstudio.com/) just follow those links to get them. It'll be a steep learning curve if you aren't familiar with R even a little bit, though.
 
