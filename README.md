@@ -1,18 +1,26 @@
+### What is this?
+
 `melbourne-walking` is a small R project that is designed to:
 
 -   show how to scrape a web page for links
 -   download those links (without re-downloading on repeated runs) en masse
--   read in a bunch of data files
--   clean the resultant data frame
+-   read in a bunch of (well, all of) those data files
+-   clean the resultant data frame (it has varying date formats)
 -   munge the data for a vis
--   visualize the data
--   compare raw R script vs Rmd vs Jupyter notebook
+-   visualize the data both as a static ggplot heatmap and interactive htmlwidget
+-   compare raw R script vs Rmd vs [Jupyter notebook](https://jupyter.org/)
+
+### Why "Melbourne Walking"?
 
 The City of Melboune maintains a [site](http://www.pedestrian.melbourne.vic.gov.au/) where you can see data from their 24-hour pedestrian counting system which measures pedestrian activity in the city each day.
 
 The system counts pedestrian movements to give the City of Melbourne a better understanding of how people use the city so we can manage the way they function and plan for future needs.
 
 The main page has an interactive visualiztion you can explore, but they also [make the data available for download](http://www.pedestrian.melbourne.vic.gov.au/datadownload.html).
+
+I found the data set in a [Python post](http://myownhat.blogspot.com/2015/07/quick-example-heat-map-of-pedestrian.html) and felt that it might be useful for the course I'm teaching this Fall.
+
+### What do I do next?
 
 The R code in this repo grabs all that data and visualizes the most active hours using a heatmap.
 
@@ -25,9 +33,15 @@ There are many ways to work with the R code. You can:
 -   Run the `melbourne-walking.R` from the top level of the project folder via `Rscript R/melbourne-walking.R`
 -   Open `melbourne-walking.ipynb` in a Jupyter notebook with an R kernel
 
+The interactive version will most likely not work from your R console.
+
 There are four output files in the repo (and that will be generated if you run the R code in the wasy described above):
 
 -   `melbourne-walking.html` showing the output from the Rmd knit
 -   `./R/melbourne-walking.html` showing the output from a "spin" of the R script
 -   `melbourne-walking-ipynb.html` showing what the Jupyter notebook output looks like
 -   `Rplots.pdf` which is a PDF version of running just the R script from the command line
+
+<center>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Melbourne Walking in R</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/hrbrmstr/melbourne-walking" property="cc:attributionName" rel="cc:attributionURL">Bob Rudis</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hrbrmstr/melbourne-walking" rel="dct:source">https://github.com/hrbrmstr/melbourne-walking</a>.
+</center>
