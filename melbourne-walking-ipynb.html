@@ -228,7 +228,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre>data_dir <span class="o">&lt;-</span> <span class="s">&quot;./data&quot;</span>
+<div class=" highlight hl-r"><pre>data_dir <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span><span class="kp">basename</span><span class="p">(</span><span class="kp">getwd</span><span class="p">())</span><span class="o">==</span><span class="s">&quot;R&quot;</span><span class="p">,</span> <span class="s">&quot;../data&quot;</span><span class="p">,</span> <span class="s">&quot;./data&quot;</span><span class="p">)</span>
+
+data_dir <span class="o">&lt;-</span> <span class="s">&quot;./data&quot;</span>
 base_url <span class="o">&lt;-</span> <span class="s">&quot;http://www.pedestrian.melbourne.vic.gov.au/&quot;</span>
 
 pg <span class="o">&lt;-</span> read_html<span class="p">(</span>modify_url<span class="p">(</span>base_url<span class="p">,</span> path<span class="o">=</span><span class="s">&quot;datadownload.html&quot;</span><span class="p">))</span>
@@ -1697,6 +1699,42 @@ tbl_df<span class="p">(</span>wday_totals<span class="p">)</span> <span class="o
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And, we can even make these interactive</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span class="kn">library</span><span class="p">(</span>d3heatmap<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>htmltools<span class="p">)</span>
+
+wday_totals <span class="o">%&gt;%</span>
+  select<span class="p">(</span>weekday<span class="o">=</span><span class="m">1</span><span class="p">,</span> hour<span class="o">=</span><span class="m">2</span><span class="p">,</span> total<span class="o">=</span><span class="m">3</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+  spread<span class="p">(</span>hour<span class="p">,</span> total<span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="kt">data.frame</span> <span class="o">-&gt;</span> wday_df
+
+<span class="kp">rownames</span><span class="p">(</span>wday_df<span class="p">)</span> <span class="o">&lt;-</span> wday_df<span class="o">$</span>weekday
+
+select<span class="p">(</span>wday_df<span class="p">,</span> <span class="o">-</span>weekday<span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="kp">as.matrix</span><span class="p">()</span> <span class="o">%&gt;%</span> 
+  d3heatmap<span class="p">(</span>width<span class="o">=</span><span class="m">600</span><span class="p">,</span> height<span class="o">=</span><span class="m">300</span><span class="p">,</span>dendrogram<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> colors<span class="o">=</span><span class="s">&quot;YlGn&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+html_print<span class="p">()</span>
+</pre></div>
+
+</div>
 </div>
 </div>
 

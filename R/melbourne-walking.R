@@ -79,6 +79,17 @@ ggplot(wday_totals, aes(x=Hour, y=weekday)) +
   theme(legend.key.width=unit(2, "cm")) +
   theme(legend.position="bottom")
 
+#' And, we can also make this interactive:
 
+library(d3heatmap)
 
+wday_totals %>%
+  select(weekday=1, hour=2, total=3) %>%
+  spread(hour, total) %>%
+  data.frame -> wday_df
 
+rownames(wday_df) <- wday_df$weekday
+
+select(wday_df, -weekday) %>%
+  as.matrix() %>%
+  d3heatmap(width=600, height=300,dendrogram="none", colors="YlGn")
