@@ -1,5 +1,7 @@
 #' ## Visualizing Melbourne Pedestrian Counts
 
+#' (you can find the whole project for this [on github](https://github.com/hrbrmstr/melbourne-walking))
+
 #' First we need some libraries
 #+ setup, warning=FALSE, message=FALSE
 

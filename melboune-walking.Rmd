@@ -6,6 +6,8 @@ output: html_document
 ---
 ## Visualizing Melbourne Pedestrian Counts
 
+(you can find the whole project for this [on github](https://github.com/hrbrmstr/melbourne-walking))
+
 First we need some libraries
 
 ```{r setup, warning=FALSE, message=FALSE}
@@ -25,7 +27,7 @@ library(grid)
 Next we get the list of data files from the site by scraping the download page for the URLs and storing them locally. The use of `write_disk` makes for a free "caching" function as well.
 
 ```{r get_data, warning=FALSE, message=FALSE}
-data_dir <- "./data"
+data_dir <- ifelse(basename(getwd())=="R", "../data", "./data")
 base_url <- "http://www.pedestrian.melbourne.vic.gov.au/"
 
 pg <- read_html(modify_url(base_url, path="datadownload.html"))

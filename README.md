@@ -10,6 +10,8 @@
 -   visualize the data both as a static ggplot heatmap and interactive [htmlwidget](http://htmlwidgets.org)
 -   compare raw R script vs Rmd vs [Jupyter notebook](https://jupyter.org/)
 
+![](heatmap.png)
+
 ### Why "Melbourne Walking"?
 
 The City of Melboune maintains a [site](http://www.pedestrian.melbourne.vic.gov.au/) where you can see data from their 24-hour pedestrian counting system which measures pedestrian activity in the city each day.
