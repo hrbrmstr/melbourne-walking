@@ -1,7 +1,7 @@
 ---
 title: "Melboune Walking"
 author: "Bob Rudis (@hrbrmstr)"
-date: "July 10, 2015"
+date: "July 11, 2015"
 output: html_document
 ---
 ## Visualizing Melbourne Pedestrian Counts
@@ -11,10 +11,10 @@ output: html_document
 First we need some libraries
 
 ```{r setup, warning=FALSE, message=FALSE}
-library(rvest)
+library(rvest)     # devtools::install_github("hadley/rvest")
 library(httr)
 library(dplyr)
-library(xml2)
+library(xml2)      # devtools::install_github("hadley/xml2")
 library(pbapply)
 library(data.table)
 library(lubridate)

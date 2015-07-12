@@ -50,6 +50,13 @@ There are four output files in the repo (and that will be generated if you run t
 
 ### What if I get stuck?
 
+First, you may want to ensure you do:
+
+    devtools::install_github("hadley/rvest")
+    devtools::install_github("hadley/xml2")
+
+since there's a change on the way into how `rvest` & `xml2` interact and I tend to stay on `devtools` branches of the Hadleyverse.
+
 You can [file an issue](https://github.com/hrbrmstr/melbourne-walking/issues) and I'll do my best to answer back in a timely fashion.
 
 ------------------------------------------------------------------------

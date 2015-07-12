@@ -5,10 +5,10 @@
 #' First we need some libraries
 #+ setup, warning=FALSE, message=FALSE
 
-library(rvest)
+library(rvest)     # devtools::install_github("hadley/rvest")
 library(httr)
 library(dplyr)
-library(xml2)
+library(xml2)      # devtools::install_github("hadley/xml2")
 library(pbapply)
 library(data.table)
 library(lubridate)
