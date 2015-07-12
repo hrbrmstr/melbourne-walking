@@ -10,7 +10,7 @@
 
 <meta name="author" content="Bob Rudis (@hrbrmstr)" />
 
-<meta name="date" content="2015-07-10" />
+<meta name="date" content="2015-07-11" />
 
 <title>Melboune Walking</title>
 
@@ -70,7 +70,7 @@ img {
 <div id="header">
 <h1 class="title">Melboune Walking</h1>
 <h4 class="author"><em>Bob Rudis (<span class="citation">@hrbrmstr</span>)</em></h4>
-<h4 class="date"><em>July 10, 2015</em></h4>
+<h4 class="date"><em>July 11, 2015</em></h4>
 </div>
 
 
@@ -78,10 +78,10 @@ img {
 <h2>Visualizing Melbourne Pedestrian Counts</h2>
 <p>(you can find the whole project for this <a href="https://github.com/hrbrmstr/melbourne-walking">on github</a>)</p>
 <p>First we need some libraries</p>
-<pre class="r"><code>library(rvest)
+<pre class="r"><code>library(rvest)     # devtools::install_github(&quot;hadley/rvest&quot;)
 library(httr)
 library(dplyr)
-library(xml2)
+library(xml2)      # devtools::install_github(&quot;hadley/xml2&quot;)
 library(pbapply)
 library(data.table)
 library(lubridate)
@@ -90,7 +90,7 @@ library(ggplot2)
 library(scales)
 library(grid)</code></pre>
 <p>Next we get the list of data files from the site by scraping the download page for the URLs and storing them locally. The use of <code>write_disk</code> makes for a free “caching” function as well.</p>
-<pre class="r"><code>data_dir &lt;- &quot;./data&quot;
+<pre class="r"><code>data_dir &lt;- ifelse(basename(getwd())==&quot;R&quot;, &quot;../data&quot;, &quot;./data&quot;)
 base_url &lt;- &quot;http://www.pedestrian.melbourne.vic.gov.au/&quot;
 
 pg &lt;- read_html(modify_url(base_url, path=&quot;datadownload.html&quot;))
@@ -153,8 +153,8 @@ rownames(wday_df) &lt;- wday_df$weekday
 select(wday_df, -weekday) %&gt;% 
   as.matrix() %&gt;% 
   d3heatmap(width=600, height=300,dendrogram=&quot;none&quot;, colors=parula)</code></pre>
-<p><div id="htmlwidget-7988" style="width:600px;height:300px;" class="d3heatmap"></div>
-<script type="application/json" data-for="htmlwidget-7988">{"x":{"rows":null,"cols":null,"matrix":{"data":["1930979","1241837","924916","702288","390866","300917","432655","959918","1840328","2455822","3898538","5299400","6788231","7446514","7510175","7380463","6931528","6069787","4487175","3522534","2780999","2273380","1735754","1099817","563954","295717","191657","148981","145139","311166","1124596","3352105","7324244","4922111","4562354","5600220","9010081","9532412","7507951","7383174","8316564","10324936","6519413","3880268","2964276","2360370","1691307","1025123","426181","205737","125872","110462","117497","330273","1315134","3841903","8120385","5188048","4504576","5446519","9028246","9570650","7348482","7238522","8452627","10894854","7102560","4238070","3200487","2573880","1846643","1124771","548534","280438","170187","133792","126978","320974","1280330","3708258","7855828","5155858","4618185","5678839","9267951","9761369","7553828","7498099","8553738","10745460","7193029","4506027","3328674","2699651","2154302","1350110","606854","302794","183873","138498","132652","324535","1277519","3706772","7833036","5244829","4616142","5596208","9172116","9772684","7681186","7550592","8615081","10943120","7553447","4822653","3609025","2923452","2275418","1470508","719591","379348","240556","183039","165671","343727","1281992","3642704","7791793","5277621","4852935","6016262","9697378","10275582","8238873","8269888","9496358","11695931","8852102","6552352","5006576","4299178","3946757","2883265","1740351","962340","612966","434142","276038","283849","450776","950162","1814371","2665344","4014003","5499044","7057087","7834359","7835277","7966044","7716595","7121468","5938620","4910038","4062458","3711352","3792551","2920990"],"dim":[7,24],"rows":["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"],"cols":["X0","X1","X2","X3","X4","X5","X6","X7","X8","X9","X10","X11","X12","X13","X14","X15","X16","X17","X18","X19","X20","X21","X22","X23"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAYCAYAAAA20uedAAACVElEQVQokTXRz0uTcRzA8fd3Pu55fPY8WSlYUc1mGfbDoU6lROpQRAVBXjp26RQREUFQhy4digqipKCyQ5KGohQVQdAvKAopIqSTpmYu19bWtmfTZz8/HaK/4M2Lt6o+NiXLon/wZX5TuZhGy8ShmEe8Btrq6W/M+tezELCQgMOqOo291lf8nmnU7VcnJIeHWHkJY6WVvIlvwY6ayB8dVXtqQhYcjdXRMFZsCk82iSrmQUqo9s0XRXSTVH0r6S6LM6399CZ2Ey+YqNDTQRkyhrD1DA8Lm8nhIVhKsK32E1qHHqZz8iwSM1BpL07Sy7rINGZkO6q9+YpQKoAIAFJlE2nsJrezgHr+4oicdA4w49bQ6PvJiDmAbTgM5INo454a7lrDtLS+5/LkIYJzpzEiJqS8KPvolKyIzGP/msSzkEQV/jEAVKi1V6KNXbjdZW423eFceh/RXDV+exY193q/WLrDiNtCCUWoGGNrw0euzhxEWQ/eiS9sISkvJacSPepSN/uFimwc1b71klAuA4LoFv8TN5r6UM2PHkrEXc5aK8yoOUi1keTxYpCc8qD1m0Nsahvj3sR+dsSPszC/nHJSR1Je1NLDE1L/4wuaE0PlXSgXQQTRfWhLchnmewJc3/SK884uMgWLgD3DsH0fVfzcLG/jIRRCkxGmuvMD31/v4ZrqQG0cfSbh7DIMtwI1b5INm9TPTaI7UVRb5y1R+cV/R7wmbq2f2bUbqKp1UTV9Y1JfN02POc5GEgDoUsJRlagLL8/Ik0IDkcwaEqmlaG4FKJDfBn8BnOQL5spsQQsAAAAASUVORK5CYII=","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[]}</script></p>
+<p><div id="htmlwidget-7687" style="width:600px;height:300px;" class="d3heatmap"></div>
+<script type="application/json" data-for="htmlwidget-7687">{"x":{"rows":null,"cols":null,"matrix":{"data":["1930979","1241837","924916","702288","390866","300917","432655","959918","1840328","2455822","3898538","5299400","6788231","7446514","7510175","7380463","6931528","6069787","4487175","3522534","2780999","2273380","1735754","1099817","563954","295717","191657","148981","145139","311166","1124596","3352105","7324244","4922111","4562354","5600220","9010081","9532412","7507951","7383174","8316564","10324936","6519413","3880268","2964276","2360370","1691307","1025123","426181","205737","125872","110462","117497","330273","1315134","3841903","8120385","5188048","4504576","5446519","9028246","9570650","7348482","7238522","8452627","10894854","7102560","4238070","3200487","2573880","1846643","1124771","548534","280438","170187","133792","126978","320974","1280330","3708258","7855828","5155858","4618185","5678839","9267951","9761369","7553828","7498099","8553738","10745460","7193029","4506027","3328674","2699651","2154302","1350110","606854","302794","183873","138498","132652","324535","1277519","3706772","7833036","5244829","4616142","5596208","9172116","9772684","7681186","7550592","8615081","10943120","7553447","4822653","3609025","2923452","2275418","1470508","719591","379348","240556","183039","165671","343727","1281992","3642704","7791793","5277621","4852935","6016262","9697378","10275582","8238873","8269888","9496358","11695931","8852102","6552352","5006576","4299178","3946757","2883265","1740351","962340","612966","434142","276038","283849","450776","950162","1814371","2665344","4014003","5499044","7057087","7834359","7835277","7966044","7716595","7121468","5938620","4910038","4062458","3711352","3792551","2920990"],"dim":[7,24],"rows":["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"],"cols":["X0","X1","X2","X3","X4","X5","X6","X7","X8","X9","X10","X11","X12","X13","X14","X15","X16","X17","X18","X19","X20","X21","X22","X23"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAYCAYAAAA20uedAAACVElEQVQokTXRz0uTcRzA8fd3Pu55fPY8WSlYUc1mGfbDoU6lROpQRAVBXjp26RQREUFQhy4digqipKCyQ5KGohQVQdAvKAopIqSTpmYu19bWtmfTZz8/HaK/4M2Lt6o+NiXLon/wZX5TuZhGy8ShmEe8Btrq6W/M+tezELCQgMOqOo291lf8nmnU7VcnJIeHWHkJY6WVvIlvwY6ayB8dVXtqQhYcjdXRMFZsCk82iSrmQUqo9s0XRXSTVH0r6S6LM6399CZ2Ey+YqNDTQRkyhrD1DA8Lm8nhIVhKsK32E1qHHqZz8iwSM1BpL07Sy7rINGZkO6q9+YpQKoAIAFJlE2nsJrezgHr+4oicdA4w49bQ6PvJiDmAbTgM5INo454a7lrDtLS+5/LkIYJzpzEiJqS8KPvolKyIzGP/msSzkEQV/jEAVKi1V6KNXbjdZW423eFceh/RXDV+exY193q/WLrDiNtCCUWoGGNrw0euzhxEWQ/eiS9sISkvJacSPepSN/uFimwc1b71klAuA4LoFv8TN5r6UM2PHkrEXc5aK8yoOUi1keTxYpCc8qD1m0Nsahvj3sR+dsSPszC/nHJSR1Je1NLDE1L/4wuaE0PlXSgXQQTRfWhLchnmewJc3/SK884uMgWLgD3DsH0fVfzcLG/jIRRCkxGmuvMD31/v4ZrqQG0cfSbh7DIMtwI1b5INm9TPTaI7UVRb5y1R+cV/R7wmbq2f2bUbqKp1UTV9Y1JfN02POc5GEgDoUsJRlagLL8/Ik0IDkcwaEqmlaG4FKJDfBn8BnOQL5spsQQsAAAAASUVORK5CYII=","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[]}</script></p>
 </div>
 
 
