@@ -16,6 +16,7 @@ library(tidyr)
 library(ggplot2)
 library(scales)
 library(grid)
+library(viridis)
 
 #' Next we get the list of data files from the site by scraping the download
 #' page for the URLs and storing them locally. The use of `write_disk` makes
@@ -68,10 +69,7 @@ tbl_df(wday_totals) %>%
 #' And, finally, we plot it heatmap style.
 #+ plot_vis, warning=FALSE, message=FALSE
 
-parula <- c('#352a87', '#0363e1', '#1485d4', '#06a7c6', '#38b99e',
-            '#92bf73', '#d9ba56', '#fcce2e', '#f9fb0e')
-
-palette <- parula
+palette <- viridis(9)
 
 ggplot(wday_totals, aes(x=Hour, y=weekday)) +
   geom_tile(aes(fill=`Total Walkers\n(log scale)`), color="white", size=0.5) +
@@ -97,4 +95,4 @@ rownames(wday_df) <- wday_df$weekday
 
 select(wday_df, -weekday) %>%
   as.matrix() %>%
-  d3heatmap(width=600, height=300,dendrogram="none", colors=parula)
+  d3heatmap(width=600, height=300,dendrogram="none", colors=palette)

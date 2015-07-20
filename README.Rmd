@@ -1,7 +1,7 @@
 ---
 title: "README"
 author: "@hrbrmstr"
-date: July 10, 2015
+date: July 20, 2015
 output:
   md_document:
     variant: markdown_github
@@ -67,6 +67,11 @@ First, you may want to ensure you do:
 since there's a change on the way into how `rvest` & `xml2` interact and I tend to stay on `devtools` branches of the Hadleyverse.
 
 You can [file an issue](https://github.com/hrbrmstr/melbourne-walking/issues) and I'll do my best to answer back in a timely fashion.
+
+### Changelog
+
+- 2015-07-20 Switched from parula to viridis palette
+- 2015-07-10 Initial version
 
 ------------
 
